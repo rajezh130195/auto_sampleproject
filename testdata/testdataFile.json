@@ -1,0 +1,32 @@
+{
+    "userRegistration": {
+      "email": "sampleuser1@gmail.com",
+      "password": "Test@1234",
+      "firstName": "Venkat",
+      "lastName": "Abhi",
+      "date" : "10",
+      "month" : "4",
+      "year" : "1996",
+      "address": "130, NOC Ramraj Nagar",
+      "company" : "Atomic",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "zipCode": "54100",
+      "phoneNumber": 6628487488
+    },
+    "productDetails": {
+      "productId": "1",
+      "productName": "New Product 1",
+      "productPrice": "19.99",
+      "productQuantity": 1
+    },
+    "checkout": {
+      "billingAddress": "130, NOC Ramraj Nagar, Bengaluru, Karnataka, 541100",
+      "paymentMethod": "Credit Card",
+      "cardDetails": {
+        "cardNumber": "4111111111111111",
+        "expiryDate": "12/26",
+        "cvv": "773"
+      }
+    }
+  }

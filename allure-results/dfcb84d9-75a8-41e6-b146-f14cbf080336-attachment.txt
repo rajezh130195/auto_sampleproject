@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//img[@alt=\"Website for automation practice\"]"
+}

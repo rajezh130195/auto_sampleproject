@@ -1,0 +1,4 @@
+{
+  "using": "xpath",
+  "value": "//a[@href=\"/product_details/2\"]"
+}
