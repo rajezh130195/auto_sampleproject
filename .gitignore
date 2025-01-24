@@ -1,2 +1,5 @@
 *.txt
 *.html
+allure-results/*.json
+allure-results/*.txt
+allure-results/*.json
