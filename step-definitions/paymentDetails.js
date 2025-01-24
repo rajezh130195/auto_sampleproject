@@ -34,6 +34,6 @@ Then(/^I Should place the order successfully$/, async () => {
     //Validates the order is placed 
     await $('//button[text()="Pay and Confirm Order"]').click()
     await commonUtils.isElementPresent('//b[text()="Order Placed!"]')
-    await commonUtils.isElementPresent('Congratulations! Your order has been confirmed!')
-    await commonUtils.actualExpectedValidation($('//p[text()="Congratulations! Your order has been confirmed!"]') ,'Congratulations! Your order has been confirmed!')
+    await commonUtils.isElementPresent('//p[contains(text(), "Your order has been confirmed")]')
+    await commonUtils.actualExpectedValidation($('//p[contains(text(), "Your order has been confirmed")]'), "Congratulations! Your order has been confirmed!");
 });
