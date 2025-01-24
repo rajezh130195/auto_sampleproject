@@ -15,12 +15,12 @@ When(/^I click on the "SignIn_Login" button$/, async () => {
     await $('a[href="/login"]').click();
 });
 
-When(/^I enter a valid email address name and signUp$/, async () => {
+Then(/^I enter a valid email address name and signUp$/, async () => {
     //New User SignUp
     await loginPage.login(jsonData.userRegistration.firstName);
 });
 
-When(/^I fill in personal details and click "Create Account"$/, async () => {
+Then(/^I fill in personal details and click "Create Account"$/, async () => {
     //enter all the personal infirmation details using below script in after user SignUp
     await $('//input[@value="Mr"]').click();
     await $('//input[@id="password"]').click();

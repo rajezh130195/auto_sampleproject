@@ -209,9 +209,12 @@ exports.config = {
                     reject(new Error('Allure report generation failed'));
                 } else {
                     console.log('Allure report successfully generated');
-                    const open = require('open');
-                    open(path.join(__dirname, 'allure-report'));
-                    resolve();
+                    // Automatically open the report
+                    const openReport = allure(['open']);
+                    openReport.on('exit', () => {
+                        console.log('Allure report opened in the default browser.');
+                        resolve();
+                    });
                 }
             });
         });

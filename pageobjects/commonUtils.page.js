@@ -35,6 +35,10 @@ class CommonUtils {
             console.error(` '${selector}' Element is not displayed on the Page. Error: ${error.message}`);
         }
     }
+
+    async inputSetValue(selector, value){
+        await $(selector).setValue(value);
+    }
 }
 
 module.exports =  new CommonUtils();
