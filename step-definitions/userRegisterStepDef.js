@@ -41,5 +41,5 @@ Then(/^I should see my name and surname displayed on the home landing screen$/, 
     await $('//img[@alt="Website for automation practice"]').isDisplayed();
     console.log('Landed on the Automation Exercise Home Page');
     await accountInfoPage.actualExpectedValidation($('//a[text()=" Logged in as "]/b'), jsonData.userRegistration.firstName );
-    console.log('Successfully logged in with : '+accountName+' user');
+    console.log('Successfully logged in with : '+jsonData.userRegistration.firstName+' user');
 });
