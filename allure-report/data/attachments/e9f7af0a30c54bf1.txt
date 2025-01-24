@@ -1,4 +1,0 @@
-{
-  "using": "xpath",
-  "value": "//a[text()=\"Proceed To Checkout\"]"
-}

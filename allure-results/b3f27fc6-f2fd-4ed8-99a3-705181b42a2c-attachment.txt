@@ -1,3 +1,0 @@
-{
-  "text": "Placing order for all the added products in the cart for the respective user address"
-}

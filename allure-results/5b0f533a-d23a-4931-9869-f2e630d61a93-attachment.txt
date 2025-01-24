@@ -1,4 +1,0 @@
-{
-  "using": "xpath",
-  "value": "(//img[@alt=\"ecommerce website products\"]/following-sibling::p)[3]"
-}

@@ -1,4 +1,0 @@
-{
-  "using": "xpath",
-  "value": "//ul[@id=\"address_delivery\"]/li[8]"
-}

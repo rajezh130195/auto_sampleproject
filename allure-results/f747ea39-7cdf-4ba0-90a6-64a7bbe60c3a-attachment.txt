@@ -1,4 +1,0 @@
-{
-  "using": "xpath",
-  "value": "//div/p[text()=\"Your product has been added to cart.\"]"
-}

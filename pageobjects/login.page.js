@@ -1,4 +1,5 @@
 const { $ } = require('@wdio/globals')
+const commonUtils = require('../pageobjects/commonUtils.page')
 
 /**
  * sub page containing specific selectors and methods for a specific page
@@ -8,31 +9,26 @@ class LoginPage  {
      * define selectors using getter methods
      */
     get inputUsername () {
-        return $('#username');
+        return $('//input[@name="name"]');
     }
 
-    get inputPassword () {
-        return $('#password');
+    get inputEmail () {
+        return $('//input[@name="name"]//following::input[@name="email"]');
     }
 
-    get btnSubmit () {
-        return $('button[type="submit"]');
+    get btnSignup () {
+        return $('//button[text()="Signup"]');
     }
 
     /**
      * a method to encapsule automation code to interact with the page
      * e.g. to login using username and password
      */
-    async login (username, password) {
+    async login (username) {
         await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
-    }
-
-    async selectDate(date, month, year) {
-        await $('//select[@id="days"]').selectByVisibleText(date.toString());
-        await $('//select[@id="months"]').selectByVisibleText(month).toString();
-        await $('//select[@id="years"]').selectByVisibleText(year.toString());
+        await this.inputEmail.setValue(`test${Date.now()}@example.com`);
+        await this.btnSignup.click();
+        console.log('New User Signed Up successfully')
     }
 
     /**

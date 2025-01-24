@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+const allure = require('allure-commandline');
+
 exports.config = {
     //
     // ====================
@@ -42,7 +46,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -143,12 +147,75 @@ exports.config = {
     // see also: https://webdriver.io/docs/dot-reporter
     reporters: ['spec', // Built-in WebdriverIO reporter
         ['allure', {
-            outputDir: 'allure-results', // Directory where results are stored
+            outputDir: path.join(process.cwd(), 'allure-results'), // Directory where results are stored
             disableWebdriverStepsReporting: false, // Enable WebDriver command logging
             disableWebdriverScreenshotsReporting: false, // Attach screenshots to the report
             useCucumberStepReporter: true, // For Cucumber, to link steps properly
+            resultJson: path.join(process.cwd(), 'allure-results/results.json'),
         }],
     ],
+
+    afterTest: async function(test) {
+        if (test.passed) {
+            await browser.allure.addLabel('status', 'passed');
+        } else {
+            await browser.allure.addLabel('status', 'failed');
+            await browser.saveScreenshot('path/to/screenshot.png');
+        }
+    },
+
+    onPrepare: function (config, capabilities) {
+        // Cleanup Allure results folder before starting the tests
+        const allureResultsDir = path.join(__dirname, 'allure-results');
+        if (fs.existsSync(allureResultsDir)) {
+            fs.rmSync(allureResultsDir, { recursive: true, force: true });
+            console.log('Allure results directory cleared.');
+        }
+    },
+
+    onComplete: function (exitCode, config, capabilities, results) {
+        // Step 1: Define the environment properties you want to include in the report
+        const environmentProperties = `browserName=Chrome/MicrosoftEdge\nplatform=Windows 10\nApplicationUrl='https://automationexercise.com'`;
+    
+        // Step 2: Define the directory where Allure results are stored
+        const allureResultsDir = path.join(__dirname, 'allure-results');
+        
+        // Step 3: Define the path for the environment.properties file
+        const environmentFilePath = path.join(allureResultsDir, 'environment.properties');
+    
+        // Step 4: Ensure the directory exists before writing the file
+        if (!fs.existsSync(allureResultsDir)) {
+            fs.mkdirSync(allureResultsDir, { recursive: true });
+        }
+    
+        // Step 5: Write the environment properties to the environment.properties file
+        fs.writeFileSync(environmentFilePath, environmentProperties, 'utf8');
+        console.log('Environment properties file created successfully.');
+    
+        // Step 6: Generate the Allure report
+        const generation = allure(['generate', 'allure-results', '--clean']);
+        
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(() => {
+                console.log('Allure report generation finished.');
+                resolve();
+            }, 5000);
+    
+            // Step 7: Handle Allure report generation completion
+            generation.on('exit', function (exitCode) {
+                clearTimeout(generationTimeout);
+                if (exitCode !== 0) {
+                    console.error('Could not generate Allure report');
+                    reject(new Error('Allure report generation failed'));
+                } else {
+                    console.log('Allure report successfully generated');
+                    const open = require('open');
+                    open(path.join(__dirname, 'allure-report'));
+                    resolve();
+                }
+            });
+        });
+    },
 
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -336,29 +403,6 @@ exports.config = {
      */
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
-
-
-
-    onComplete: function (exitCode, config, capabilities, results) {
-        const generation = allure(['generate', 'allure-results', '--clean']);
-        return new Promise((resolve, reject) => {
-            const generationTimeout = setTimeout(() => {
-                console.log('Allure report generation finished.');
-                resolve();
-            }, 5000);
-
-            generation.on('exit', function (exitCode) {
-                clearTimeout(generationTimeout);
-                if (exitCode !== 0) {
-                    console.error('Could not generate Allure report');
-                    reject(new Error('Allure report generation failed'));
-                } else {
-                    console.log('Allure report successfully generated');
-                    resolve();
-                }
-            });
-        });
-    },
 
     /**
     * Gets executed when a refresh happens.
