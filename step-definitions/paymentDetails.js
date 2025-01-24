@@ -22,11 +22,11 @@ Then(/^I click on the "Place Order" button and navigate to payment page$/, async
 Then(/^I enter card payment details on the payment page$/, async () => {
     //Validates all details and enters card payment details to place order
     await commonUtils.isElementPresent('//h2[text()="Payment"]');
-    await commonUtils.inputSetValue('//input[@name="name_on_card"]', 'Venkat Raja Kumar')
-    await commonUtils.inputSetValue('//input[@name="card_number"]', '4524 7536 8787 7263')
-    await commonUtils.inputSetValue('//input[@name="cvc"]', '345')
-    await commonUtils.inputSetValue('//input[@name="expiry_month"]', '09')
-    await commonUtils.inputSetValue('//input[@name="expiry_year"]', '2026');
+    await commonUtils.inputSetValue('//input[@name="name_on_card"]', jsonData.checkout.cardDetails.cardName)
+    await commonUtils.inputSetValue('//input[@name="card_number"]', jsonData.checkout.cardDetails.cardNumber)
+    await commonUtils.inputSetValue('//input[@name="cvc"]', jsonData.checkout.cardDetails.cvv)
+    await commonUtils.inputSetValue('//input[@name="expiry_month"]', jsonData.checkout.cardDetails.expiryMonth)
+    await commonUtils.inputSetValue('//input[@name="expiry_year"]', jsonData.checkout.cardDetails.expiryYear);
 });
 
 

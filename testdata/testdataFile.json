@@ -14,19 +14,15 @@
       "zipCode": "54100",
       "phoneNumber": 6628487488
     },
-    "productDetails": {
-      "productId": "1",
-      "productName": "New Product 1",
-      "productPrice": "19.99",
-      "productQuantity": 1
-    },
     "checkout": {
       "billingAddress": "130, NOC Ramraj Nagar, Bengaluru, Karnataka, 541100",
       "paymentMethod": "Credit Card",
       "cardDetails": {
-        "cardNumber": "4111111111111111",
-        "expiryDate": "12/26",
-        "cvv": "773"
+        "cardName" : "Venkat Raja Kumar",
+        "cardNumber": "4524 7536 8787 7263",
+        "expiryMonth": "12",
+        "expiryYear" : "2026",
+        "cvv": "345"
       }
     }
   }
